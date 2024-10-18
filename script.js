@@ -2,6 +2,16 @@ const h1 = document.getElementById('score');
 let points = 0;
 const canvas = document.getElementById('campoJogo');
 const ctx = canvas.getContext('2d');
+const tileSize = 60;
+
+const personagem = {
+    imagem: document.getElementById("personagem"),
+    x: 30,
+    y: 30,
+    direction: "",
+    speed: 30
+}
+
 
 const size = 30;
 
@@ -16,7 +26,7 @@ const food = {
 }
 
 const draw = () => {
-    
+    ctx.drawImage(personagem.imagem, personagem.x, personagem.y, tileSize, tileSize);
 }
 
 const move = () => {
@@ -48,7 +58,31 @@ const colisionEnemy = () => {
 }
 
 const checkColision = () => {
-    
+        //left                  up                      right                                   down
+    if ((personagem.x == 0 || personagem.y == 0 || personagem.x == canvas.width - tileSize || personagem.y == canvas.height - tileSize)){
+
+    } else {
+        switch (personagem.direction) {
+            case "right":
+                personagem.x += personagem.speed;
+                personagem.direction = "";
+                break;
+            case "left":
+                personagem.x -= personagem.speed;
+                personagem.direction = "";
+                break;
+            case "up":
+                personagem.y -= personagem.speed;
+                personagem.direction = "";
+                break;
+            case "down":
+                personagem.y += personagem.speed;
+                personagem.direction = "";
+                break;
+        }
+    }
+
+
 }
 
 const gameOver = () => {
@@ -75,23 +109,23 @@ gameLoop();
 document.addEventListener('keydown', function (tecla) {
     switch (tecla.keyCode) {
         case 39:
-            if (direction != "left") {
-                direction = "right";
+            if (personagem.direction != "left") {
+                personagem.direction = "right";
             }
             break;
         case 37:
-            if (direction != "right") {
-                direction = "left";
+            if (personagem.direction != "right") {
+                personagem.direction = "left";
             }
             break;
         case 38:
-            if (direction != "down") {
-                direction = "up";
+            if (personagem.direction != "down") {
+                personagem.direction = "up";
             }
             break;
         case 40:
-            if (direction != "up") {
-                direction = "down";
+            if (personagem.direction != "up") {
+                personagem.direction = "down";
             }
             break;
     }
