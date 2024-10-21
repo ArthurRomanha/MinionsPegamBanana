@@ -2,7 +2,7 @@ const h1 = document.getElementById('score');
 let points = 0;
 const canvas = document.getElementById('campoJogo');
 const ctx = canvas.getContext('2d');
-const tileSize = 60;
+const tileSize = 30;
 
 const personagem = {
     imagem: document.getElementById("personagem"),
@@ -26,7 +26,7 @@ const food = {
 }
 
 const draw = () => {
-    ctx.drawImage(personagem.imagem, personagem.x, personagem.y, tileSize, tileSize);
+    ctx.drawImage(personagem.imagem, personagem.x, personagem.y, tileSize*2, tileSize*2);
 }
 
 const move = () => {
@@ -58,29 +58,6 @@ const colisionEnemy = () => {
 }
 
 const checkColision = () => {
-        //left                  up                      right                                   down
-    if ((personagem.x == 0 || personagem.y == 0 || personagem.x == canvas.width - tileSize || personagem.y == canvas.height - tileSize)){
-
-    } else {
-        switch (personagem.direction) {
-            case "right":
-                personagem.x += personagem.speed;
-                personagem.direction = "";
-                break;
-            case "left":
-                personagem.x -= personagem.speed;
-                personagem.direction = "";
-                break;
-            case "up":
-                personagem.y -= personagem.speed;
-                personagem.direction = "";
-                break;
-            case "down":
-                personagem.y += personagem.speed;
-                personagem.direction = "";
-                break;
-        }
-    }
 
 
 }
@@ -108,25 +85,17 @@ gameLoop();
 
 document.addEventListener('keydown', function (tecla) {
     switch (tecla.keyCode) {
-        case 39:
-            if (personagem.direction != "left") {
-                personagem.direction = "right";
-            }
+        case 39://right
+            if (personagem.x < canvas.width - tileSize*2) { personagem.x += tileSize; }
             break;
-        case 37:
-            if (personagem.direction != "right") {
-                personagem.direction = "left";
-            }
+        case 37://left
+            if (personagem.x > 0) { personagem.x -= tileSize; }
             break;
-        case 38:
-            if (personagem.direction != "down") {
-                personagem.direction = "up";
-            }
+        case 38://up
+            if (personagem.y > 0) { personagem.y -= tileSize; }
             break;
-        case 40:
-            if (personagem.direction != "up") {
-                personagem.direction = "down";
-            }
+        case 40://down
+            if (personagem.y < canvas.height - tileSize*2) { personagem.y += tileSize; }
             break;
     }
 });
