@@ -11,6 +11,11 @@ const personagem = {
     direction: "",
     speed: 30
 }
+const banana = {
+    imagem: document.getElementById("banana"),
+    x: 90,
+    y: 30,
+}
 
 
 const size = 30;
@@ -27,6 +32,7 @@ const food = {
 
 const draw = () => {
     ctx.drawImage(personagem.imagem, personagem.x, personagem.y, tileSize*2, tileSize*2);
+    ctx.drawImage(banana.imagem, banana.x, banana.y, tileSize, tileSize);
 }
 
 const move = () => {
@@ -54,12 +60,35 @@ const drawGrid = () => {
 }
 
 const colisionEnemy = () => {
-
+    
 }
 
 const checkColision = () => {
+    personagemFood();
+    const personagemEnemy = () => {
 
+    }
 
+}
+const personagemFood = () => {
+    let posicoesBanana =[
+        {x: banana.x, y: banana.y },
+        {x: banana.x + tileSize, y: banana.y },
+        {x: banana.x, y: banana.y  + tileSize },
+        {x: banana.x + tileSize, y: banana.y  + tileSize },
+    ]
+    for(let position of posicoesBanana){
+        //  x   y
+    if((personagem.x+tileSize == position.x  ) && (personagem.y+tileSize == position.y)){
+        points++;
+        h1.textContent = points;
+        generateNewPosition(banana);
+    }
+    }
+}
+const generateNewPosition = (entity) => {
+    entity.x = Math.round(Math.random() * 19) * tileSize;
+    entity.y = Math.round(Math.random() * 19) * tileSize;
 }
 
 const gameOver = () => {
